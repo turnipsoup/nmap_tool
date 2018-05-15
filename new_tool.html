@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html><head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <title>T2 Nmap Tool</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="new_tool.js"></script>
+  <link rel="stylesheet" href="new_tool.css">
+</head>
+
+<body>
+
+  <div class="main-holder text-center">
+   <b><h1 class="text-center"> NMAP Tool </h1></b>
+   <i><p class="text-center">Note: This cannot scan internally. Limited to Public IP Addresses.</p></i><p><i></i>
+
+     <input class="test-box" placeholder="Ex: scanme.nmap.org">
+     <br>
+     <br>
+     <button class="default div-center" onclick="clicker()">Scan</button>
+     <button class="danger" onclick="clearOut()">Clear</button>
+     </p><div class="nmap-options">
+     <br>
+         <form class="the-form">
+             <select class="select-list-type" name="type">
+              <option value="selected" selected="selected">Scan Type</option>
+              <option value="speedy">Speedy</option>
+              <option value="standard">Standard</option>
+              <option value="aggressive">Aggressive</option>
+             </select>
+             <br>
+             <br>
+         </form>
+         <h3 class='text-center'>Results</h3>
+     </div>
+     <pre class="output"></pre>
+     <div class="other-info"></div>
+     <br>
+</body>

@@ -1,0 +1,14 @@
+body {
+
+}
+
+.main-holder {
+  margin: auto;
+  position: relative;
+}
+
+.output {
+  width: 675px;
+  margin: auto;
+  border-radius: 10px;
+}

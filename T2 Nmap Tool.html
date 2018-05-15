@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html><head>
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <title>T2 Nmap Tool</title>
+           <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+ <div class="main-holder text-center">
+  <b><h1 class="text-center"> NMAP Tool </h1></b>
+  <i><p class="text-center">Note: This cannot scan internally. Scans limited to addresses outside of Intermedia. </p></i><p><i></i>
+
+    <input class="test-box" placeholder="Ex: scanme.nmap.org">
+    <br>
+    <br>
+    <button class="default div-center" onclick="clicker()">Scan</button>
+    <button class="danger" onclick="clearOut()">Clear</button>
+    <br>
+    <br>
+    </p><div class="nmap-options">
+    <br>
+        <form class="the-form">
+            <select class="select-list-type" name="type">
+             <option value="selected" selected="selected">Scan Type</option>
+             <option value="speedy">Speedy</option>
+             <option value="standard">Standard</option>
+             <option value="aggressive">Aggressive</option>
+            </select>
+            <br>
+            <br>
+            <div class="extended-options">
+                <p>Please select a scan type</p>
+            </div>
+        </form>
+    </div>
+    <br>
+    <pre class="output"></pre>
+    <p>Other useful links:</p>
+    <a href="http://phonetools.net/did-list-cleaner">DID List Cleaner</a>
+    <br>
+    <a href="http://phonetools.net/phone-cleaner">Phone Number Cleaner</a>
+  </div>
+
+
+<script>
+
+$(".select-list-type").on("change", function() {
+    if ($(".select-list-type").val() == "standard") {
+        $(".extended-options").empty()
+        $(".extended-options").append("<p>This will run a standard NMAP scan.</p>" + "<p>Flags: -Pn</p>" + "<p>Ports: Common 1000</p>"  + "<p>ETA: 2-3 minutes</p>")
+    }
+    else if ($(".select-list-type").val() == "selected") {
+        $(".extended-options").empty()
+        $(".extended-options").append("<p>Please select a scan type</p>")
+    }
+    else if ($(".select-list-type").val() == "speedy") {
+        $(".extended-options").empty()
+        $(".extended-options").append("<p>This will run a speedy/limited NMAP scan.</p>" + "<p>Flags: -Pn</p>" + "<p>Ports: 80, 443, 5060, 6060, 8000, 8080, 8081, 8443</p>"  + "<p>ETA: 1 minute</p>")
+    }
+    else if ($(".select-list-type").val() == "aggressive") {
+        $(".extended-options").empty()
+        $(".extended-options").append("<p>This will run an aggressive NMAP scan.</p>" + "<p>Flags: -Pn -T4 -A</p>" + "<p>Ports: Common 1000</p>"  +   "<p>ETA: 5 to 10 minutes</p>")
+    }
+    })
+
+
+var hostnameAddr = location.hostname // Gets originating hostname of the webserver
+
+//var hostUrl = 'http://' + hostnameAddr + ':3000' // This needs to be active on the live server. Do not use the static version below in production
+
+var hostUrl = "http://phonetools.net:3000" // STATIC VERSION
+
+function clicker() {
+    // console.log('Debug |Test') // Test function functionality
+    // $('.output').append($('.test-box').val() + '\n') // Test function functionality
+    var ipData = $('.test-box').val(); // Set data to send in GET request
+    var typeData = $(".select-list-type").val();
+    var sendObj = {
+        "ip": ipData,
+        "typeData": typeData
+    }
+    //console.log('Debug |' + 'Request URL: ' + hostUrl);
+    //console.log('Debug |' + 'Send data: ' + sendData);
+    $('.output').append("It is running...")
+
+    $.get( hostUrl, sendObj).done(function(data) {
+        //console.log(data)
+        $('.output').append(data)
+        fraudulizer(data)
+        endTable()
+
+    })
+
+
+}
+
+function clearOut() {
+  $( ".output" ).html('')
+  $( ".fraud-output" ).text('')
+  $(".test-box").val('')
+    }
+
+function clearTest() { // This function exists to give test output to the div wihtout making the sever call. Replace what the "Scan" button does onclick with this.
+
+  $( ".output" ).append('test')
+  console.log('test')
+}
+</script>
+
+<style>
+/*
+Intermedia Primary Colours
+--------------------------
+Blue: #0098DB
+Green: #96BC33
+Red: #ED1C24
+Orange: #F7941E
+Grey: #505050
+
+Color Scheme: http://www.colourlovers.com/palette/4551822/Barbarian
+*/
+
+a:link {
+  text-decoration: underline;
+  color: black;
+  font-style: italic;
+}
+
+.btn {
+    color: black;
+}
+
+body {
+  font-family: 'Open Sans Condensed', sans-serif;
+  background-color: #404751;
+  color: #E0D5B7;
+}
+
+pre {
+    background-color: #ADABAC;
+}
+
+
+.default {
+  background-color: #96BC33;
+  color: black;
+}
+
+.danger {
+  background-color: #ED1C24;
+  color: black;
+}
+.nmap-options {
+    width: 500px;
+    height: 250px;
+    margin: auto;
+}
+
+.select-list-type{
+    color: black;
+}
+
+.extended-options {
+    width: 450px;
+    height: 160px;
+    margin: auto;
+}
+
+.fraud-output {
+  width: 800px;
+  margin: auto;
+}
+
+.fraud-output a {
+  color: white;
+
+}
+
+.test-box {
+  color: black;
+}
+
+.main-holder  {
+    margin: auto;
+    position: relative;
+    width: 900px;
+    border: solid black 1px;
+    top: 50px;
+    background-color: #5E7489;
+    border-radius: 10px;
+}
+
+</style></body></html>
