@@ -26,7 +26,8 @@ function clicker() {
           if (split_list[i].includes("/tcp")) {
             if (split_list[i].split(" ").includes("open")) {
               var link_create = "http://" + $('.test-box').val() + ":" + split_list[i].split("/")[0]
-              $(".links-info").append("<a href='" + link_create + "'></a>")
+              $(".links").append("<a href='" + link_create + "'>"+ link_create + "</a>")
+              console.log("<a href='" + link_create + "'>"+ link_create + "</a>")
             }
 
           }
