@@ -23,6 +23,11 @@ function clicker() {
         $('.output').append(data)
     })
 
+    $.get("https://ipinfo.io/8.8.8.8", function(response) {
+      console.log(response)
+      $(".ip-info").append(response);
+    }, "jsonp")
+
 
 }
 
