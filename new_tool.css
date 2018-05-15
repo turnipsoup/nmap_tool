@@ -27,7 +27,22 @@ body {
   margin: auto;
 }
 
-.ip-info {
+.ip-info-div {
   width: 50%;
+  position: relative;
+  float: left;
+}
+
+.ip-info {
+  border-radius: 10px;
+}
+
+.links-div {
+  width: 50%;
+  position: relative;
+  float: left;
+}
+
+.links-info {
   border-radius: 10px;
 }
