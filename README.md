@@ -1,4 +1,4 @@
-#NMAP Web GUI
+# NMAP Web GUI
 This tool allows you to have a NMAP webGUI on your network for people to utilize.
 
 ## Running
