@@ -8,6 +8,8 @@ var exec = require('child_process').exec;
 
 
 
+var timeout = require('connect-timeout')
+
 // Server
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -19,6 +21,7 @@ app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   next();
 });
+app.use(timeout("5000s"))
 
 app.get('/', function (req, res) {
     var ip = req.query.ip
@@ -64,4 +67,3 @@ app.get('/udp', function (req, res) {
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!')
 })
-
