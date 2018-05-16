@@ -50,4 +50,5 @@ function clearOut() {
   $( ".fraud-output" ).text('')
   $(".test-box").val('')
   $( ".ip-info" ).html('')
+  $(".links").html("")
 } // Clears out the output fields.
