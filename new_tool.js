@@ -1,8 +1,7 @@
 var hostnameAddr = location.hostname // Gets originating hostname of the webserver
 
-//var hostUrl = 'http://' + hostnameAddr + ':3000' // This needs to be active on the live server. Do not use the static version below in production
+var hostUrl = 'http://' + hostnameAddr + ':3000' // This needs to be active on the live server. Do not use the static version below in production
 
-var hostUrl = "http://phonetools.net:3000" // STATIC VERSION
 
 function clicker() {
     // console.log('Debug |Test') // Test function functionality
