@@ -46,3 +46,15 @@ body {
 .links {
   border-radius: 10px;
 }
+
+.trace-div {
+  width: 675px;
+  position: relative;
+  float: bottom;
+  margin: auto;
+}
+
+.trace-info {
+  border-radius: 10px;
+  width: 675px;
+}

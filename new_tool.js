@@ -2,6 +2,7 @@ var hostnameAddr = location.hostname // Gets originating hostname of the webserv
 
 var hostUrl = 'http://' + hostnameAddr + ':3000' // This needs to be active on the live server. Do not use the static version below in production
 
+// var hostUrl = "http://phonetools.net:3000" // This is a static version for testing. I host this site myself for myself.
 
 function clicker() {
     // console.log('Debug |Test') // Test function functionality
@@ -43,7 +44,27 @@ function clicker() {
     }, "jsonp")
 
 
+
+
+    var hostUrlTwo = 'http://' + hostnameAddr + ':3000/udp'
+    var ipDataTwo = $('.test-box').val(); // Set data to send in GET request
+    var sendObjTwo = {
+        "ip": ipDataTwo,
+    }
+    //console.log('Debug |' + 'Request URL: ' + hostUrl);
+    //console.log('Debug |' + 'Send data: ' + sendData);
+    $('.trace-info').append("Tracing tracing tracing...")
+    $('.trace-info').append("<br>")
+    $.get( hostUrlTwo, sendObjTwo).done(function(data) {
+        //console.log(data)
+        $('.trace-info').append(data)
+
+
+    })
+
+
 }
+
 
 function clearOut() {
   $( ".output" ).html('')
@@ -51,4 +72,5 @@ function clearOut() {
   $(".test-box").val('')
   $( ".ip-info" ).html('')
   $(".links").html("")
+  $(".trace-info").html("")
 } // Clears out the output fields.
