@@ -1,0 +1,21 @@
+
+Starting Nmap 7.60 ( https://nmap.org ) at 2018-05-17 16:19 PDT
+Nmap scan report for scanme.nmap.org (45.33.32.156)
+Host is up (0.088s latency).
+Not shown: 987 filtered ports
+PORT      STATE  SERVICE
+22/tcp    open   ssh
+80/tcp    open   http
+280/tcp   closed http-mgmt
+1096/tcp  closed cnrprotocol
+1102/tcp  closed adobeserver-1
+5678/tcp  closed rrac
+6001/tcp  closed X11:1
+6002/tcp  closed X11:2
+9929/tcp  open   nping-echo
+16993/tcp closed amt-soap-https
+23502/tcp closed unknown
+31337/tcp open   Elite
+54045/tcp closed unknown
+
+Nmap done: 1 IP address (1 host up) scanned in 52.27 seconds

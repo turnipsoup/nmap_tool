@@ -5,7 +5,7 @@ var app = express()
 var bodyParser = require('body-parser');
 var methodOverride = require('method-override')
 var exec = require('child_process').exec;
-
+var fs = require('fs')
 
 
 var timeout = require('connect-timeout')
@@ -47,23 +47,68 @@ app.get('/', function (req, res) {
         var command_string = "Error: Your Scan Type Was - " + scanType + "IP: " + ip
         var cmd = "nmap -Pn -p 21,22,80,443,5060,5061,6000-6999,8000-8100,65443" + " " + ip
     }
+    var data_for_saving;
 
-  exec(cmd, function(error, stdout, stderr) {
-      //console.log(stdout)
-      res.send(stdout)
-});
+    exec(cmd, function(error, stdout, stderr) {
+      data_for_saving = stdout
+      var dir_name = "/var/www/html/t2/nmap/storage"
+      var file_name = ip + "_" + scanType + "_" + Date()
+      var write_name = dir_name + "/" + file_name
+      //console.log(write_name)
+
+        fs.writeFile(write_name, data_for_saving, function(err) {
+          //console.log('file saved!')
+          if(err) throw err;
+        });
+        res.send(data_for_saving)
+      });
+
+
+
 })
+
+
+//// SECTION FOR UDP TRACE
+var data_for_saving;
 
 app.get('/udp', function (req, res) {
     var ip = req.query.ip
     var cmd;
         var cmd = "traceroute" + " " + ip
     exec(cmd, function(error, stdout, stderr) {
-      //console.log(stdout)
-      res.send(stdout)
+      data_for_saving = stdout
+      //console.log(data_for_saving)
+      });
+
+      res.send(data_for_saving)
 });
+
+//// IP SEARCH SECTION
+
+app.get("/ip/:ip", function(req,res,next) {
+
+
+  fs.readdir("/var/www/html/t2/nmap/storage/", function(err, items) {
+    var html_list = []
+    html_list.push("<table><tr><th>Date</th><th>Type</th><th>IP</th></tr>")
+      for (var i=0; i<items.length;i++) {
+        if (items[i].split("_")[0] == req.params.ip) {
+          var unique_url = "http://www.phonetools.net/t2/nmap/storage/" + items[i]
+          html_list.push("<tr>" + "<td><a href='" + unique_url + "'>" + items[i].split("_")[2] + "</a></td>" + "<td>" + items[i].split("_")[1] + "</td>" + "<td>" + items[i].split("_")[0] + "</td>")
+        }
+        else {
+          // pass
+        }
+      }
+      // console.log(items[0].split("\n"))
+      //console.log(items[0].split("_")[0])
+    html_list.push("</table><style>td:hover {background-color: #f5f5f5;}</style>")
+    res.send(html_list.join("\n"))
+  });
+
 })
 
 app.listen(3000, function () {
+  console.log("beta!")
   console.log('Example app listening on port 3000!')
 })

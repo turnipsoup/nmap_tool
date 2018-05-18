@@ -2,7 +2,7 @@ var hostnameAddr = location.hostname // Gets originating hostname of the webserv
 
 var hostUrl = 'http://' + hostnameAddr + ':3000' // This needs to be active on the live server. Do not use the static version below in production
 
-// var hostUrl = "http://phonetools.net:3000" // This is a static version for testing. I host this site myself for myself.
+//var hostUrl = "http://127.0.0.1:3000" // This is a static version for testing. I host this site myself for myself.
 
 function clicker() {
     // console.log('Debug |Test') // Test function functionality
@@ -46,7 +46,7 @@ function clicker() {
 
 
 
-    var hostUrlTwo = 'http://' + hostnameAddr + ':3000/udp'
+    var hostUrlTwo = hostUrl + '/udp'
     var ipDataTwo = $('.test-box').val(); // Set data to send in GET request
     var sendObjTwo = {
         "ip": ipDataTwo,
