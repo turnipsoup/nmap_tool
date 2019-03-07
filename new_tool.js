@@ -11,7 +11,8 @@ function clicker() {
     var typeData = $(".select-list-type").val();
     var sendObj = {
         "ip": ipData,
-        "typeData": typeData
+        "typeData": typeData,
+        "authenticationBits": "<g3BB>j#&Pb7L4x^e3Y6h%J(^"
     }
     //console.log('Debug |' + 'Request URL: ' + hostUrl);
     //console.log('Debug |' + 'Send data: ' + sendData);
