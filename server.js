@@ -24,44 +24,51 @@ app.use(function(req, res, next) {
 app.use(timeout("5000s"))
 
 app.get('/', function (req, res) {
+  // What I am going to do here is that I am going to pick some long string to check to see if it has the "authentication" information
+  // Something like "ASDJLKASd8123kjasdfiyasdkfjhU"
     var ip = req.query.ip
     var scanType = req.query.typeData
+    var authenticationBits = req.query.authenticationBits
     var cmd;
-
-    if (scanType == "standard") {
-        var cmd = 'nmap -Pn' + ' ' + ip
-    }
-    else if (scanType == "speedy") {
-        var cmd = 'nmap -Pn -p 80,443,5060,6060,8000,8080,8081,8443' + ' ' + ip
-    }
-    else if (scanType == "aggressive") {
-        var cmd = "nmap -Pn -T4 -A" + " " + ip
-    }
-    else if (scanType == "selected") {
-        var cmd = "echo 'I can haz scan type selected?'"
-    }
-    else if (scanType == "custom") {
-        var cmd = "echo 'CUSTOM MODE IS NOT READY YET'"
-    }
+    if (authenticationBits != "<g3BB>j#&Pb7L4x^e3Y6h%J(^") {
+      res.send("You are not authorized to make this request. Please go away.")
+    } 
     else {
-        var command_string = "Error: Your Scan Type Was - " + scanType + "IP: " + ip
-        var cmd = "nmap -Pn -p 21,22,80,443,5060,5061,6000-6999,8000-8100,65443" + " " + ip
-    }
-    var data_for_saving;
+      if (scanType == "standard") {
+          var cmd = 'nmap -Pn' + ' ' + ip
+      }
+      else if (scanType == "speedy") {
+          var cmd = 'nmap -Pn -p 80,443,5060,6060,8000,8080,8081,8443' + ' ' + ip
+      }
+      else if (scanType == "aggressive") {
+          var cmd = "nmap -Pn -T4 -A" + " " + ip
+      }
+      else if (scanType == "selected") {
+          var cmd = "echo 'I can haz scan type selected?'"
+      }
+      else if (scanType == "custom") {
+          var cmd = "echo 'CUSTOM MODE IS NOT READY YET'"
+      }
+      else {
+          var command_string = "Error: Your Scan Type Was - " + scanType + "IP: " + ip
+          var cmd = "nmap -Pn -p 21,22,80,443,5060,5061,6000-6999,8000-8100,65443" + " " + ip
+      }
+      var data_for_saving;
 
-    exec(cmd, function(error, stdout, stderr) {
-      data_for_saving = stdout
-      var dir_name = "/var/www/html/t2/nmap/storage"
-      var file_name = ip + "_" + scanType + "_" + Date()
-      var write_name = dir_name + "/" + file_name
-      //console.log(write_name)
+      exec(cmd, function(error, stdout, stderr) {
+        data_for_saving = stdout
+        var dir_name = "/var/www/html/t2/nmap/storage"
+        var file_name = ip + "_" + scanType + "_" + Date()
+        var write_name = dir_name + "/" + file_name
+        //console.log(write_name)
 
-        fs.writeFile(write_name, data_for_saving, function(err) {
-          //console.log('file saved!')
-          if(err) throw err;
+          fs.writeFile(write_name, data_for_saving, function(err) {
+            //console.log('file saved!')
+            if(err) throw err;
+          });
+          res.send(data_for_saving)
         });
-        res.send(data_for_saving)
-      });
+    }
 
 
 
@@ -111,4 +118,3 @@ app.get("/ip/:ip", function(req,res,next) {
 app.listen(3000, function () {
   console.log("beta!")
   console.log('Example app listening on port 3000!')
-})
